@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { globalEventBus } from './event-bus';
+import { globalEventBus, HEROES_LIST_AVAILABLE } from './event-bus';
 import { mockHeroes } from '../shared/model/mock-heroes';
 
 
@@ -14,7 +14,7 @@ export class EventBusExperimentsComponent implements OnInit {
 
     ngOnInit() {
         // Use the globalEventBus to communicate mockHeroes to all registered observers
-        globalEventBus.notifyObservers(mockHeroes);
+        globalEventBus.notifyObservers(HEROES_LIST_AVAILABLE, mockHeroes.slice(0));
         console.log('Top level component broadcasted all heroes');
     }
 

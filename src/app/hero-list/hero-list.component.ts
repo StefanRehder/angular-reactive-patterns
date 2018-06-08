@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { globalEventBus, Observer } from '../event-bus-experiments/event-bus';
+import { globalEventBus, Observer, HEROES_LIST_AVAILABLE } from '../event-bus-experiments/event-bus';
 import { Hero } from '../shared/model/hero';
 
 @Component({
@@ -14,7 +14,7 @@ export class HeroListComponent implements Observer {
     constructor() {
         // Bad practise: showing the sequencing downside of a global event bus
         // If this code is in ngOnInit it registers itself after the data is broadcasted
-        globalEventBus.registerObserver(this);
+        globalEventBus.registerObserver(HEROES_LIST_AVAILABLE, this);
         console.log('HeroListComponent is registered as an observer');
     }
 
