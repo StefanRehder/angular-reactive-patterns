@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { globalEventBus, Observer, HEROES_LIST_AVAILABLE } from '../event-bus-experiments/event-bus';
+import { globalEventBus, Observer, HEROES_LIST_AVAILABLE, ADD_NEW_HERO } from '../event-bus-experiments/event-bus';
 import { Hero } from '../shared/model/hero';
 
 @Component({
@@ -15,6 +15,14 @@ export class HeroListComponent implements Observer {
         // Bad practise: showing the sequencing downside of a global event bus
         // If this code is in ngOnInit it registers itself after the data is broadcasted
         globalEventBus.registerObserver(HEROES_LIST_AVAILABLE, this);
+        globalEventBus.registerObserver(ADD_NEW_HERO, {
+            notify: name => {
+                this.heroes.push({
+                    id: Math.random(),
+                    name: name
+                });
+            }
+        });
         console.log('HeroListComponent is registered as an observer');
     }
 
@@ -23,4 +31,8 @@ export class HeroListComponent implements Observer {
         console.log('HeroListComponent received data!', data);
     }
 
+    toggleHeroAlive(hero: Hero) {
+        console.log('Toggle hero alive performed');
+        hero.alive = !hero.alive;
+    }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { globalEventBus, HEROES_LIST_AVAILABLE } from './event-bus';
+import { globalEventBus, HEROES_LIST_AVAILABLE, ADD_NEW_HERO } from './event-bus';
 import { mockHeroes } from '../shared/model/mock-heroes';
 
 
@@ -19,6 +19,7 @@ export class EventBusExperimentsComponent implements OnInit {
     }
 
     addHero(name: string) {
+        globalEventBus.notifyObservers(ADD_NEW_HERO, name);
         console.log('Hero was added', name);
     }
 
