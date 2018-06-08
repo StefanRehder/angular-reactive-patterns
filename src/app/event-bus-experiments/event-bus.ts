@@ -1,4 +1,4 @@
-import { heroes } from './../shared/model/mock-heroes';
+import { mockHeroes } from './../shared/model/mock-heroes';
 import * as _ from 'lodash';
 
 export interface Observer {
