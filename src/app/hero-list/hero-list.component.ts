@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { globalEventBus, Observer, HEROES_LIST_AVAILABLE, ADD_NEW_HERO } from '../event-bus-experiments/event-bus';
 import { Hero } from '../shared/model/hero';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'hero-list',
@@ -35,5 +36,10 @@ export class HeroListComponent implements Observer {
     toggleHeroAlive(hero: Hero) {
         console.log('Toggle hero alive performed');
         hero.alive = !hero.alive;
+    }
+
+    delete(deleted: Hero) {
+        this.heroes = _.remove(this.heroes,
+            hero => hero.id === deleted.id);
     }
 }
