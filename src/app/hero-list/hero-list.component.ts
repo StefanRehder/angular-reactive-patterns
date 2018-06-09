@@ -27,7 +27,8 @@ export class HeroListComponent implements Observer {
     }
 
     notify(data: Hero[]) {
-        this.heroes = data;
+        // Using slice to make a copy of data instead of storing a reference to the object
+        this.heroes = data.slice(0);
         console.log('HeroListComponent received data!', data);
     }
 
