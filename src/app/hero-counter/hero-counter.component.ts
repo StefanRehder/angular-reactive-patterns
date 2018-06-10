@@ -1,7 +1,6 @@
-import { HEROES_LIST_AVAILABLE, Observer } from './../event-bus-experiments/event-bus';
 import { Component, OnInit } from '@angular/core';
-import { globalEventBus, ADD_NEW_HERO } from '../event-bus-experiments/event-bus';
 import { Hero } from '../shared/model/hero';
+import { heroList$, Observer } from '../event-bus-experiments/app-data';
 
 @Component({
   selector: 'hero-counter',
@@ -12,14 +11,12 @@ export class HeroCounterComponent implements Observer {
     heroCounter = 0;
 
     constructor() {
-        globalEventBus.registerObserver(HEROES_LIST_AVAILABLE, this);
-        globalEventBus.registerObserver(ADD_NEW_HERO, {
-            notify: name => this.heroCounter += 1
-        });
         console.log('Hero counter component is registered as an observer');
+
+        heroList$.subscribe(this);
     }
 
-    notify(data: Hero[]) {
+    next(data: Hero[]) {
         this.heroCounter = data.length;
         console.log('Counter component received data');
     }
