@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../shared/model/hero';
 import * as _ from 'lodash';
-import { Observer, heroList$ } from '../event-bus-experiments/app-data';
+import { Observer, store } from '../event-bus-experiments/app-data';
 
 @Component({
   selector: 'hero-list',
@@ -13,7 +13,7 @@ export class HeroListComponent implements Observer, OnInit {
     heroes: Hero[] = [];
 
     ngOnInit(): void {
-        heroList$.subscribe(this);
+        store.heroList$.subscribe(this);
         console.log('HeroListComponent is subscribed to the heroList$ observable');
     }
 

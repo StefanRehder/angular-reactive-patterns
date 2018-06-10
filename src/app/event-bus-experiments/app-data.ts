@@ -29,20 +29,24 @@ class SubjectImplementation implements Subject {
     }
 }
 
-const heroListSubject = new SubjectImplementation();
+class Datastore {
+    private heroes: Hero[] = [];
 
-export let heroList$: Observable = {
-    subscribe: obs => {
-        heroListSubject.subscribe(obs);
-        obs.next(heroes);
-    },
-    unsubscribe: obs => heroListSubject.unsubscribe(obs)
-};
+    private heroListSubject = new SubjectImplementation();
 
-let heroes: Hero[] = [];
+    public heroList$: Observable = {
+        subscribe: obs => {
+            this.heroListSubject.subscribe(obs);
+            obs.next(this.heroes);
+        },
+        unsubscribe: obs => this.heroListSubject.unsubscribe(obs)
+    };
 
-export function initializeHeroList(newList: Hero[]) {
-    // Use cloneDeep to avoid other objects from mutating the array as a reference
-    heroes = _.cloneDeep(newList);
-    heroListSubject.next(heroes);
+    initializeHeroList(newList: Hero[]) {
+        // Use cloneDeep to avoid other objects from mutating the array as a reference
+        this.heroes = _.cloneDeep(newList);
+        this.heroListSubject.next(this.heroes);
+    }
 }
+
+export const store = new Datastore();

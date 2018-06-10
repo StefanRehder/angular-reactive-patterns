@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { mockHeroes } from '../shared/model/mock-heroes';
 import { Hero } from '../shared/model/hero';
-import { initializeHeroList } from './app-data';
-
+import { store } from './app-data';
 
 @Component({
   selector: 'event-bus-experiments',
@@ -12,7 +11,7 @@ import { initializeHeroList } from './app-data';
 export class EventBusExperimentsComponent implements OnInit {
 
     ngOnInit() {
-        initializeHeroList(mockHeroes.slice(0));
+        store.initializeHeroList(mockHeroes.slice(0));
         console.log('Top level component broadcasted all heroes');
 
         // Simulate arrival of a new hero from the back-end

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../shared/model/hero';
-import { heroList$, Observer } from '../event-bus-experiments/app-data';
+import { Observer, store } from '../event-bus-experiments/app-data';
 
 @Component({
   selector: 'hero-counter',
@@ -13,7 +13,7 @@ export class HeroCounterComponent implements Observer {
     constructor() {
         console.log('Hero counter component is registered as an observer');
 
-        heroList$.subscribe(this);
+        store.heroList$.subscribe(this);
     }
 
     next(data: Hero[]) {
