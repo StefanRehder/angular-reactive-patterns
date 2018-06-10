@@ -30,6 +30,7 @@ class SubjectImplementation implements Subject {
 }
 
 class Datastore {
+
     private heroes: Hero[] = [];
 
     private heroListSubject = new SubjectImplementation();
@@ -45,6 +46,12 @@ class Datastore {
     initializeHeroList(newList: Hero[]) {
         // Use cloneDeep to avoid other objects from mutating the array as a reference
         this.heroes = _.cloneDeep(newList);
+        this.heroListSubject.next(this.heroes);
+    }
+
+    addHero(newHero: Hero) {
+        // Use cloneDeep to avoid other objects from mutating the array as a reference
+        this.heroes.push(_.cloneDeep(newHero));
         this.heroListSubject.next(this.heroes);
     }
 }

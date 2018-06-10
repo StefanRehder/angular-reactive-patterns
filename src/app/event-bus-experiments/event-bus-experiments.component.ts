@@ -21,13 +21,19 @@ export class EventBusExperimentsComponent implements OnInit {
                 name: 'New hero arriving from the back-end'
             };
 
-            // TODO
+            store.addHero(newHero);
+
         }, 10000);
 
     }
 
     addHero(name: string) {
-        // TODO
+        const newHero = {
+            id: Math.random(),
+            name: name
+        };
+
+        store.addHero(newHero);
     }
 
 }
