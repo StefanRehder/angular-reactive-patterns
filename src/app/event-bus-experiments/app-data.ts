@@ -1,8 +1,6 @@
 import { mockHeroes } from './../shared/model/mock-heroes';
 import * as _ from 'lodash';
-
-export const HEROES_LIST_AVAILABLE = 'HEROES_LIST_AVAILABLE';
-export const ADD_NEW_HERO = 'ADD_NEW_HERO';
+import { Hero } from '../shared/model/hero';
 
 export interface Observer {
     next(data: any);
@@ -31,4 +29,20 @@ class SubjectImplementation implements Subject {
     }
 }
 
-export let heroList$: Observable;
+const heroListSubject = new SubjectImplementation();
+
+export let heroList$: Observable = {
+    subscribe: obs => {
+        heroListSubject.subscribe(obs);
+        obs.next(heroes);
+    },
+    unsubscribe: obs => heroListSubject.unsubscribe(obs)
+};
+
+let heroes: Hero[] = [];
+
+export function initializeHeroList(newList: Hero[]) {
+    // Use cloneDeep to avoid other objects from mutating the array as a reference
+    heroes = _.cloneDeep(newList);
+    heroListSubject.next(heroes);
+}

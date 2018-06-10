@@ -8,14 +8,13 @@ import { Observer, heroList$ } from '../event-bus-experiments/app-data';
   templateUrl: './hero-list.component.html',
   styleUrls: ['./hero-list.component.css']
 })
-export class HeroListComponent implements Observer {
+export class HeroListComponent implements Observer, OnInit {
 
     heroes: Hero[] = [];
 
-    constructor() {
-        console.log('HeroListComponent is registered as an observer');
-
+    ngOnInit(): void {
         heroList$.subscribe(this);
+        console.log('HeroListComponent is subscribed to the heroList$ observable');
     }
 
     next(data: Hero[]) {
