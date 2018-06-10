@@ -12,11 +12,11 @@ Experiments with dumb browser events.
 
 ### event-bus-experiments
 
-Experiments with a global event bus (an implementation of the observable design pattern) used to communicate between components via custom events.
+Experiments with a global event bus (an implementation of the observer design pattern) used to communicate between components via custom events.
 The goal of this eperiment is to show that this reactive pattern does not scale well when multiple components
 need to share and modify the same data. This experiement ended when the delete function was added to hero-list.component.ts.
 This broke the application and showed how difficult the application had become to maintain.
-The delete button was commented out in hero-list.component.html to make it functional again.
+After that the application was refactored to use the observable pattern instead.
 
 ## Development server
 
