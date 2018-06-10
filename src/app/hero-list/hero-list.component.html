@@ -2,13 +2,11 @@
     <tbody>
         <tr *ngFor="let hero of heroes">
             <td class="alive">
-                <input type="checkbox" (click)="toggleHeroAlive(hero)">
+                <input [checked]="hero.alive" type="checkbox" (click)="toggleHeroAlive(hero)">
             </td>
             <td class="hero-name">{{ hero.name }}</td>
-            <td class="strength">
-                <span>{{ hero.strength }}</span>
-                <!-- Below feature breaks the application -->
-                <!-- <button class="button button-highlight" (click)="delete(hero)">X</button> -->
+            <td class="delete">
+                <button class="button button-highlight" (click)="delete(hero)">X</button>
             </td>
         </tr>
     </tbody>

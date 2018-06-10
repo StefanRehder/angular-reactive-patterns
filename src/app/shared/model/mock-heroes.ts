@@ -3,17 +3,14 @@ import { Hero } from './hero';
 export const mockHeroes: Hero[] = [
     {
         id: 1,
-        name: 'Super Woman',
-        strength: 5
+        name: 'Super Woman'
     },
     {
         id: 2,
-        name: 'Spiderman',
-        strength: 7
+        name: 'Spiderman'
     },
     {
         id: 3,
-        name: 'The Arrow',
-        strength: 9
+        name: 'The Arrow'
     }
 ];

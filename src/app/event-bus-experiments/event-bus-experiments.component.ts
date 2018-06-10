@@ -35,5 +35,4 @@ export class EventBusExperimentsComponent implements OnInit {
 
         store.addHero(newHero);
     }
-
 }

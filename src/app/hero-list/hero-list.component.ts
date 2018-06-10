@@ -10,6 +10,7 @@ import { Observer, store } from '../event-bus-experiments/app-data';
 })
 export class HeroListComponent implements Observer, OnInit {
 
+    // Only used to display the list
     heroes: Hero[] = [];
 
     ngOnInit(): void {
@@ -18,18 +19,16 @@ export class HeroListComponent implements Observer, OnInit {
     }
 
     next(data: Hero[]) {
-        // Using slice to make a copy of data instead of storing a reference to the object
-        this.heroes = data.slice(0);
+        this.heroes = data;
         console.log('HeroListComponent received data!', data);
     }
 
     toggleHeroAlive(hero: Hero) {
         console.log('Toggle hero alive performed');
-        hero.alive = !hero.alive;
+        store.toggleHeroAlive(hero);
     }
 
     delete(deleted: Hero) {
-        this.heroes = _.remove(this.heroes,
-            hero => hero.id === deleted.id);
+        store.deleteHero(deleted);
     }
 }

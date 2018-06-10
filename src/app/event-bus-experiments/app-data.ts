@@ -46,13 +46,31 @@ class Datastore {
     initializeHeroList(newList: Hero[]) {
         // Use cloneDeep to avoid other objects from mutating the array as a reference
         this.heroes = _.cloneDeep(newList);
-        this.heroListSubject.next(this.heroes);
+        this.broadcast();
     }
 
     addHero(newHero: Hero) {
         // Use cloneDeep to avoid other objects from mutating the array as a reference
         this.heroes.push(_.cloneDeep(newHero));
-        this.heroListSubject.next(this.heroes);
+        this.broadcast();
+    }
+
+    deleteHero(deleted: Hero) {
+        _.remove(this.heroes,
+            hero => hero.id === deleted.id);
+            this.broadcast();
+    }
+
+    toggleHeroAlive(toggled: Hero) {
+        // tslint:disable-next-line:no-shadowed-variable
+        const hero = _.find(this.heroes, hero => hero.id === toggled.id);
+        hero.alive = !hero.alive;
+        this.broadcast();
+    }
+
+    broadcast() {
+        // Broadcast a clone of the data to avoid other objects from mutating the array as a reference
+        this.heroListSubject.next(_.cloneDeep(this.heroes));
     }
 }
 
