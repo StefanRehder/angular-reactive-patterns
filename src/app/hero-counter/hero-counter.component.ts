@@ -7,18 +7,18 @@ import { Observer, store } from '../event-bus-experiments/app-data';
   templateUrl: './hero-counter.component.html',
   styleUrls: ['./hero-counter.component.css']
 })
-export class HeroCounterComponent implements Observer {
+export class HeroCounterComponent implements Observer, OnInit {
+
     heroCounter = 0;
 
-    constructor() {
-        console.log('Hero counter component is registered as an observer');
-
+    ngOnInit(): void {
+        console.log('HeroCounterComponent is subscribed as an observer');
         store.heroList$.subscribe(this);
     }
 
     next(data: Hero[]) {
+        console.log('HeroCounterComponent received data!');
         this.heroCounter = data.length;
-        console.log('Counter component received data');
     }
 
 }

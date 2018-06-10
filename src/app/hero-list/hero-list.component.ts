@@ -14,21 +14,22 @@ export class HeroListComponent implements Observer, OnInit {
     heroes: Hero[] = [];
 
     ngOnInit(): void {
+        console.log('HeroListComponent is subscribed as an observer');
         store.heroList$.subscribe(this);
-        console.log('HeroListComponent is subscribed to the heroList$ observable');
     }
 
     next(data: Hero[]) {
+        console.log('HeroListComponent received data!');
         this.heroes = data;
-        console.log('HeroListComponent received data!', data);
     }
 
     toggleHeroAlive(hero: Hero) {
-        console.log('Toggle hero alive performed');
+        console.log('Toggle hero checkbox performed');
         store.toggleHeroAlive(hero);
     }
 
     delete(deleted: Hero) {
+        console.log('Delete hero was performed');
         store.deleteHero(deleted);
     }
 }

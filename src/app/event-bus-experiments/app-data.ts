@@ -62,8 +62,7 @@ class Datastore {
     }
 
     toggleHeroAlive(toggled: Hero) {
-        // tslint:disable-next-line:no-shadowed-variable
-        const hero = _.find(this.heroes, hero => hero.id === toggled.id);
+        const hero = _.find(this.heroes, item => item.id === toggled.id);
         hero.alive = !hero.alive;
         this.broadcast();
     }
