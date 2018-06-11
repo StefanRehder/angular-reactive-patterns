@@ -17,11 +17,14 @@ The goal of this eperiment was to show that this reactive pattern does not scale
 need to share and modify the same data. This experiement ended when the delete function was added to hero-list.component.ts.
 This broke the application and showed how difficult the application had become to maintain.
 
-### Observable Experiments
+### Custom Observable Experiments
 
 The Event Bus Experiments code was then refactored to use a custom implementation of an observable instead of the global event bus.
 This experiment produced a fully functional and easy to maintain application.
 Use `git reset --hard commit 13798aecba19d950cafbc7e90fbc45769074925b` to see that state of the application.
+
+### RxJS Observable Experiments
+The custom observable was refactored to use the RxJS classes instead to see how simple it can be done.
 
 ## Development server
 
