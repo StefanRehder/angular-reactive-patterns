@@ -5,39 +5,40 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 class Datastore {
 
-    private heroes: Hero[] = [];
-
     private heroListSubject = new BehaviorSubject([]);
 
     public heroList$: Observable<Hero[]> = this.heroListSubject.asObservable();
 
     initializeHeroList(newList: Hero[]) {
-        // Use cloneDeep to avoid other objects from mutating the array as a reference
-        this.heroes = _.cloneDeep(newList);
-        this.broadcast();
+        this.heroListSubject.next(_.cloneDeep(newList));
     }
 
     addHero(newHero: Hero) {
-        // Use cloneDeep to avoid other objects from mutating the array as a reference
-        this.heroes.push(_.cloneDeep(newHero));
-        this.broadcast();
+        const heroes = this.cloneHeroes();
+        heroes.push(_.cloneDeep(newHero));
+
+        this.heroListSubject.next(heroes);
     }
 
     deleteHero(deleted: Hero) {
-        _.remove(this.heroes,
-            hero => hero.id === deleted.id);
-            this.broadcast();
+        const heroes = this.cloneHeroes();
+        _.remove(heroes, hero => hero.id === deleted.id);
+
+        this.heroListSubject.next(heroes);
     }
 
     toggleHeroAlive(toggled: Hero) {
-        const hero = _.find(this.heroes, item => item.id === toggled.id);
+        const heroes = this.cloneHeroes();
+
+        const hero = _.find(heroes, item => item.id === toggled.id);
+
         hero.alive = !hero.alive;
-        this.broadcast();
+        this.heroListSubject.next(heroes);
     }
 
-    broadcast() {
-        // Broadcast a clone of the data to avoid other objects from mutating the array as a reference
-        this.heroListSubject.next(_.cloneDeep(this.heroes));
+    private cloneHeroes() {
+        // Use cloneDeep to avoid other objects from mutating the array as a reference
+        return _.cloneDeep(this.heroListSubject.getValue());
     }
 }
 
